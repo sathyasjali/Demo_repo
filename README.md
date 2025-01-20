@@ -1,5 +1,5 @@
 # Demo_repo
-mapping nanopore direactRNAsequencing data
+mapping nanopore directRNAsequencing data
 
 Prerequisite:
 1. Install Java17 or higher
