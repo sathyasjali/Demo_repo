@@ -4,7 +4,7 @@
  */
 params.input_fastq = "${projectDir}/data/reads/test_2.fastq"
 params.reference_fa_path = "${projectDir}/data/reference/yeast_sk1.fasta"
-params.outdir = "results"
+params.outdir = "results_ukd"
 
 process MINIMAP2_ALIGN {
 
@@ -31,16 +31,14 @@ process SAMTOOLS_INDEX {
         path input_sam
 
     output:
-        path "${input_sam.baseName}.bam"
-        path "${input_sam.baseName}.bam.bai"
+        path "${input_sam.baseName}.sorted.bam"
+        path "${input_sam.baseName}.sorted.bam.bai"
 
     script:
     """
     samtools view -Sb '${input_sam}' > '${input_sam.baseName}.bam'
     samtools sort '${input_sam.baseName}.bam' -o '${input_sam.baseName}.sorted.bam'
     samtools index '${input_sam.baseName}.sorted.bam'
-    mv '${input_sam.baseName}.sorted.bam.bai' '${input_sam.baseName}.bam.bai'
-    mv '${input_sam.baseName}.sorted.bam' '${input_sam.baseName}.bam'
     """
 }
 
