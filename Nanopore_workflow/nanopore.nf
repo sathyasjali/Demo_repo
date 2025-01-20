@@ -1,46 +1,9 @@
 #! /usr/bin/env nextflow
-/*
- * Pipeline parameters
- */
-params.input_fastq = "${projectDir}/data/reads/test_2.fastq"
-params.reference_fa_path = "${projectDir}/data/reference/yeast_sk1.fasta"
-params.outdir = "results_ukd"
 
-process MINIMAP2_ALIGN {
+// Import modules
+include { MINIMAP2_ALIGN } from './modules/minimap2/align/main.nf'
 
-    publishDir params.outdir, mode: 'copy'
-
-    input:
-        path input_fastq
-        path reference_fa
-
-    output:
-        path "${input_fastq.baseName.replaceAll('.fastq$', '')}.sam"
-
-    script:
-    """
-    minimap2 -ax map-ont --secondary=no -k8 '${reference_fa}' '${input_fastq}' > '${input_fastq.baseName.replaceAll('.fastq$', '')}.sam'
-    """
-}
-
-process SAMTOOLS_INDEX {
-
-    publishDir params.outdir, mode: 'copy'
-
-    input:
-        path input_sam
-
-    output:
-        path "${input_sam.baseName}.sorted.bam"
-        path "${input_sam.baseName}.sorted.bam.bai"
-
-    script:
-    """
-    samtools view -Sb '${input_sam}' > '${input_sam.baseName}.bam'
-    samtools sort '${input_sam.baseName}.bam' -o '${input_sam.baseName}.sorted.bam'
-    samtools index '${input_sam.baseName}.sorted.bam'
-    """
-}
+include { SAMTOOLS_INDEX } from './modules/samtools/index/main.nf'
 
 workflow {
     // creating channel for inputs

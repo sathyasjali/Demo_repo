@@ -2,6 +2,8 @@
 Mapping Nanopore directRNAsequencing data
 
 Prerequisites:
+1. Unix-like operating system (Linux, macOS, etc)
+2. Java 11 or(higher)
 2. Miniconda
 3. Nextflow 
 4. Docker
