@@ -10,13 +10,13 @@ process MINIMAP2_ALIGN {
 
     input:
         path input_fastq
-        path reference_fa
+        path reference_fa_path
 
     output:
         path "${input_fastq.baseName.replaceAll('.fastq$', '')}.sam"
 
     script:
     """
-    minimap2 -ax map-ont --secondary=no -k8 '${reference_fa}' '${input_fastq}' > '${input_fastq.baseName.replaceAll('.fastq$', '')}.sam'
+    minimap2 -ax map-ont --secondary=no -k5 '${reference_fa_path}' '${input_fastq}' > '${input_fastq.baseName.replaceAll('.fastq$', '')}.sam'
     """
 }
