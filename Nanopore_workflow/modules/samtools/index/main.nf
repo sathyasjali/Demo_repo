@@ -18,7 +18,7 @@
         path "${input_sam.baseName}.sorted.bam"
         path "${input_sam.baseName}.sorted.bam.bai"
         path "${input_sam.baseName}.txt"
-        
+        path "${input_sam.baseName}_consensus.fa"        
 
     script:
     """
@@ -26,5 +26,6 @@
     samtools sort '${input_sam.baseName}.bam' -o '${input_sam.baseName}.sorted.bam'
     samtools index '${input_sam.baseName}.sorted.bam'
     samtools flagstat '${input_sam.baseName}.bam' > '${input_sam.baseName}.txt'
+    samtools consensus -a --show-ins no '${input_sam.baseName}.sorted.bam' -o '${input_sam.baseName}_consensus.fa'    
     """
 }
