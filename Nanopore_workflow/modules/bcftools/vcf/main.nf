@@ -11,7 +11,6 @@
     input:
         path input_sorted_bam
         path reference_fa_path
-        path input_mpileup
 
     output:
         path "${input_sorted_bam.baseName}.vcf"
