@@ -6,8 +6,8 @@
  
 process EMBOSS_NEEDLE {
     input:
-    path reference_fa_path from params.reference_fa_path
-    path consensus_fa_path from params.consensus_fa_path
+    path reference_fa_path
+    path consensus_fa_path
 
     output:
     path "${params.outdir}/alignment.needle"
